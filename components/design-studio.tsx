@@ -19,6 +19,7 @@ const designProjects = [
     title: 'Design System V2',
     category: 'Design System',
     icon: Palette,
+    link: 'https://www.canva.com/design/DAGvahFaYOE/sWU9QOJlNGUItaemV0VuJw/edit?utm_content=DAGvahFaYOE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton',
   },
 ]
 
