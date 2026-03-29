@@ -12,6 +12,7 @@ const designProjects = [
     title: 'Mobile App Flow',
     category: 'UX/UI Design',
     icon: Layout,
+    link: 'https://www.figma.com/design/kXH2hbrWt2j9ktnhXY1Hd4/Untitled?node-id=0-1&t=w4NEfwrfUSEuimbr-0',
   },
   {
     title: 'Design System V2',
@@ -72,9 +73,20 @@ export function DesignStudio() {
                   <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
-                  <button suppressHydrationWarning className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors">
-                    View Case Study →
-                  </button>
+                  {project.link ? (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
+                    >
+                      View Case Study →
+                    </a>
+                  ) : (
+                    <button suppressHydrationWarning className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors">
+                      View Case Study →
+                    </button>
+                  )}
                 </div>
               </div>
             )
