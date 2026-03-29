@@ -5,12 +5,39 @@ import { useState } from 'react'
 
 export function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log('Form submitted:', formData)
-    setFormData({ name: '', email: '', message: '' })
+    setStatus('idle')
+
+    // basic client validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setStatus('error')
+      return
+    }
+
+    setLoading(true)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      if (res.ok) {
+        setStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+      } else {
+        setStatus('error')
+      }
+    } catch (err) {
+      console.error(err)
+      setStatus('error')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
