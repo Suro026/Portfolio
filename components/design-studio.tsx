@@ -7,6 +7,7 @@ const designProjects = [
     title: 'E-Commerce Dashboard',
     category: 'Product Design',
     icon: Layout,
+    link: 'https://www.figma.com/design/Y4ckQZntDZ7ytuGKFDfhcz/Untitled?node-id=3-2&t=KjF3zuw63HwhuC9D-0',
   },
   {
     title: 'Mobile App Flow',
