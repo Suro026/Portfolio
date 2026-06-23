@@ -41,7 +41,7 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           {/* Replace the href value with your Google Drive (or other) resume link. Make sure the file is shared "Anyone with the link" */}
           <a
-            href="https://drive.google.com/file/d/1tUxxah4u2OEAuzNX77bHi0MLBPWghmP-/view?usp=drive_link"
+            href="https://drive.google.com/file/d/1Xv09kY46TpBPYMiGcxiIX--1CwtZ78NV/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             suppressHydrationWarning
