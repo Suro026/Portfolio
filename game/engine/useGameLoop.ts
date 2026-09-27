@@ -2,11 +2,10 @@
 
 import { useEffect, useRef } from 'react'
 import { useGameStore } from '@/store/useGameStore'
-import { INTERACT_RADIUS, PLAYER_SPEED } from '@/lib/constants'
-import { distance, resolveMove, type Rect } from './collision'
-import type { ControlState } from '@/hooks/useKeyboardControls'
-import { audioEngine } from '@/lib/audio'
+import { INTERACT_RADIUS } from '@/lib/constants'
+import { distance } from './collision'
 import type { DoorLink, Interactable } from '@/types/game'
+import { audioEngine } from '@/lib/audio'
 
 const INTERACTABLE_KINDS_REQUIRING_E: Interactable['kind'][] = [
   'npc',
@@ -19,10 +18,6 @@ const INTERACTABLE_KINDS_REQUIRING_E: Interactable['kind'][] = [
 ]
 
 interface UseGameLoopOptions {
-  controls: React.RefObject<ControlState>
-  joystick: React.RefObject<{ x: number; y: number }>
-  solids: Rect[]
-  bounds: { width: number; height: number }
   interactables: Interactable[]
   doors: DoorLink[]
   collectedChipRefIds: string[]
@@ -34,11 +29,17 @@ interface UseGameLoopOptions {
   onChipCollect: (interactable: Interactable) => void
 }
 
+/**
+ * Scans the player's current (store-driven) position against the active
+ * zone's interactables/doors every frame: nearest press-E target, and
+ * rising-edge auto-triggers for portals/doors/collectible chips.
+ *
+ * Movement itself now lives in the 3D `PlayerController` (Rapier physics),
+ * which writes the resulting position into the same store fields this hook
+ * already reads — so this trigger/quest/achievement wiring is unchanged
+ * from the 2D build.
+ */
 export function useGameLoop({
-  controls,
-  joystick,
-  solids,
-  bounds,
   interactables,
   doors,
   collectedChipRefIds,
@@ -50,65 +51,16 @@ export function useGameLoop({
   onChipCollect,
 }: UseGameLoopOptions) {
   const rafRef = useRef<number | undefined>(undefined)
-  const lastTimeRef = useRef<number | undefined>(undefined)
-  const stepAccumRef = useRef(0)
 
   useEffect(() => {
     const overlapping = new Map<string, boolean>()
     let lastNearestId: string | null = null
 
-    const tick = (time: number) => {
+    const tick = () => {
       rafRef.current = requestAnimationFrame(tick)
-      if (paused) {
-        lastTimeRef.current = time
-        return
-      }
-      if (lastTimeRef.current === undefined) {
-        lastTimeRef.current = time
-        return
-      }
-      const dt = Math.min((time - lastTimeRef.current) / 1000, 0.05)
-      lastTimeRef.current = time
+      if (paused) return
 
-      const c = controls.current
-      const j = joystick.current
-      let vx = (c.right ? 1 : 0) - (c.left ? 1 : 0)
-      let vy = (c.down ? 1 : 0) - (c.up ? 1 : 0)
-
-      if (j && (Math.abs(j.x) > 0.001 || Math.abs(j.y) > 0.001)) {
-        vx = j.x
-        vy = j.y
-      }
-
-      const len = Math.hypot(vx, vy)
-      const moving = len > 0.05
-      const store = useGameStore.getState()
-
-      if (moving) {
-        const nvx = vx / (len || 1)
-        const nvy = vy / (len || 1)
-        const dx = nvx * PLAYER_SPEED * dt
-        const dy = nvy * PLAYER_SPEED * dt
-
-        const { x, y } = resolveMove(store.playerX, store.playerY, dx, dy, solids, bounds)
-        store.setPlayerPosition(x, y)
-
-        const dir = Math.abs(nvx) > Math.abs(nvy) ? (nvx > 0 ? 'right' : 'left') : nvy > 0 ? 'down' : 'up'
-        store.setDirection(dir)
-
-        stepAccumRef.current += dt
-        if (stepAccumRef.current > 0.28) {
-          stepAccumRef.current = 0
-          audioEngine.play('footstep')
-        }
-      } else {
-        stepAccumRef.current = 0
-      }
-
-      if (store.moving !== moving) store.setMoving(moving)
-
-      const px = store.playerX
-      const py = store.playerY
+      const { playerX: px, playerY: py } = useGameStore.getState()
 
       // Nearest E-interactable
       let nearestId: string | null = null
@@ -163,21 +115,6 @@ export function useGameLoop({
     rafRef.current = requestAnimationFrame(tick)
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
-      lastTimeRef.current = undefined
     }
-  }, [
-    controls,
-    joystick,
-    solids,
-    bounds,
-    interactables,
-    doors,
-    collectedChipRefIds,
-    konamiUnlocked,
-    paused,
-    onNearestChange,
-    onDoorTrigger,
-    onPortalTrigger,
-    onChipCollect,
-  ])
+  }, [interactables, doors, collectedChipRefIds, konamiUnlocked, paused, onNearestChange, onDoorTrigger, onPortalTrigger, onChipCollect])
 }

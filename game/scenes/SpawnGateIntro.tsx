@@ -4,7 +4,9 @@ import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
-const Background3D = dynamic(() => import('@/game/fx/Background3D').then((m) => m.Background3D), { ssr: false })
+const CinematicPortalScene = dynamic(() => import('@/game/world3d/CinematicPortalScene').then((m) => m.CinematicPortalScene), {
+  ssr: false,
+})
 
 interface SpawnGateIntroProps {
   onEnter: () => void
@@ -21,7 +23,7 @@ export function SpawnGateIntro({ onEnter }: SpawnGateIntroProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-[#05050a]">
-      <Background3D accentColor="#7C3AED" ambient="portal" />
+      <CinematicPortalScene color="#7C3AED" />
 
       <div className="relative z-10 flex flex-col items-center gap-6 px-4 text-center">
         <motion.p

@@ -10,8 +10,27 @@ export const COLORS = {
 } as const
 
 export const PLAYER_SPEED = 240 // px/sec
+export const SPRINT_MULTIPLIER = 1.8
 export const INTERACT_RADIUS = 84
 export const JOYSTICK_DEADZONE = 0.15
+
+// --- 3D world scale ---
+// The Tiled maps (and the whole Zustand store) stay in pixel space exactly
+// as they were for the 2D build. The 3D scene only converts px <-> world
+// units at its own boundary, so every door/interactable/spawn coordinate,
+// quest trigger, and save file keeps working unchanged.
+export const WORLD_SCALE = 1 / 32 // world units per px (2 units per 64px tile)
+export const WALL_HEIGHT = 3.4
+export const PLAYER_HEIGHT = 1.8
+export const PLAYER_RADIUS = 0.35
+
+export function px2u(px: number): number {
+  return px * WORLD_SCALE
+}
+
+export function u2px(u: number): number {
+  return u / WORLD_SCALE
+}
 
 export const ZONE_LABELS: Record<ZoneId, string> = {
   home: 'Home',
