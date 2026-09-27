@@ -619,3 +619,62 @@
   }
 
 }
+
+/* ---------- GAMEFOLIO: game canvas & player sprite ---------- */
+
+html,
+body {
+  overscroll-behavior: none;
+  height: 100%;
+}
+
+@keyframes player-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.player-bob {
+  animation: player-bob 0.42s ease-in-out infinite;
+}
+
+@keyframes player-leg-swing-a {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-2px) rotate(-12deg); }
+}
+
+@keyframes player-leg-swing-b {
+  0%, 100% { transform: translateY(-2px) rotate(12deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+}
+
+.player-leg-a {
+  animation: player-leg-swing-a 0.42s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.player-leg-b {
+  animation: player-leg-swing-b 0.42s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* ---------- Print: resume-only output for "Print / Save as PDF" ---------- */
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #resume-print-area,
+  #resume-print-area * {
+    visibility: visible;
+  }
+  #resume-print-area {
+    position: fixed;
+    inset: 0;
+    max-height: none !important;
+    overflow: visible !important;
+    background: white;
+    color: black;
+    padding: 2rem;
+  }
+}
+
