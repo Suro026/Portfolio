@@ -1,20 +1,18 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useGameStore } from '@/store/useGameStore'
 import { useKeyboardControls } from '@/hooks/useKeyboardControls'
 import { useKonamiCode } from '@/hooks/useKonamiCode'
 import { useGameLoop } from '@/game/engine/useGameLoop'
-import { loadZone, solidsFromMap } from '@/lib/zones'
-import { mapPixelSize } from '@/lib/tiled'
+import { loadZone } from '@/lib/zones'
 import { audioEngine } from '@/lib/audio'
 import { CHIP_REF_IDS, HOME_SPAWN } from '@/lib/constants'
 import { DIALOGUE } from '@/lib/data/dialogue'
 import type { DoorLink, Interactable, ZoneMapData } from '@/types/game'
 
-import { GameWorldLayer } from '@/game/world/GameWorldLayer'
 import { ScreenEffects } from '@/game/fx/ScreenEffects'
 import { HUD } from '@/game/ui/HUD'
 import { DialogueBox } from '@/game/ui/DialogueBox'
@@ -32,7 +30,7 @@ import { DesignFrameModal } from '@/game/modals/DesignFrameModal'
 import { SpawnGateIntro } from '@/game/scenes/SpawnGateIntro'
 import { EndingCinematic } from '@/game/scenes/EndingCinematic'
 
-const Background3D = dynamic(() => import('@/game/fx/Background3D').then((m) => m.Background3D), { ssr: false })
+const Scene3D = dynamic(() => import('@/game/world3d/Scene3D').then((m) => m.Scene3D), { ssr: false })
 
 const EMPTY_INTERACTABLES: Interactable[] = []
 const EMPTY_DOORS: DoorLink[] = []
@@ -57,7 +55,6 @@ export function GameRoot() {
   const [zoneData, setZoneData] = useState<ZoneMapData | null>(null)
   const [transitioning, setTransitioning] = useState(false)
   const [activeInteractableId, setActiveInteractableId] = useState<string | null>(null)
-  const [viewport, setViewport] = useState({ width: 1280, height: 800 })
 
   const controls = useKeyboardControls()
   const joystickRef = useRef({ x: 0, y: 0 })
@@ -75,14 +72,6 @@ export function GameRoot() {
     if (!hydrated) return
     if (useGameStore.getState().phase === 'boot') useGameStore.getState().setPhase('spawn-gate')
   }, [hydrated])
-
-  // --- viewport tracking ---
-  useEffect(() => {
-    const update = () => setViewport({ width: window.innerWidth, height: window.innerHeight })
-    update()
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
-  }, [])
 
   // --- audio bootstrap (needs a user gesture) ---
   useEffect(() => {
@@ -124,9 +113,6 @@ export function GameRoot() {
     }
   }, [currentZone, phase])
 
-  const solids = useMemo(() => (zoneData ? solidsFromMap(zoneData.map) : []), [zoneData])
-  const bounds = useMemo(() => (zoneData ? mapPixelSize(zoneData.map) : { width: 0, height: 0 }), [zoneData])
-
   const paused =
     phase !== 'playing' || Boolean(activeDialogue) || Boolean(activeModal) || terminalOpen || showSettings || !zoneData || transitioning
 
@@ -156,10 +142,6 @@ export function GameRoot() {
   const handleDismissAchievement = useCallback(() => useGameStore.getState().dismissAchievement(), [])
 
   useGameLoop({
-    controls: controls.state,
-    joystick: joystickRef,
-    solids,
-    bounds,
     interactables: zoneData?.interactables ?? EMPTY_INTERACTABLES,
     doors: zoneData?.doors ?? EMPTY_DOORS,
     collectedChipRefIds: collectedChips,
@@ -253,12 +235,12 @@ export function GameRoot() {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-[#05050a]">
-      <Background3D accentColor={zoneData?.accentColor ?? '#7C3AED'} ambient={zoneData?.ambient ?? 'home'} />
-
       {zoneData && (
-        <GameWorldLayer
+        <Scene3D
           zone={zoneData}
-          viewport={viewport}
+          controls={controls.state}
+          joystick={joystickRef}
+          paused={paused}
           activeInteractableId={activeInteractableId}
           collectedChipIds={collectedChips}
           konamiUnlocked={konamiUnlocked}

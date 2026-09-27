@@ -8,6 +8,7 @@ export interface ControlState {
   left: boolean
   right: boolean
   interact: boolean
+  sprint: boolean
 }
 
 const KEY_MAP: Record<string, keyof ControlState> = {
@@ -20,11 +21,12 @@ const KEY_MAP: Record<string, keyof ControlState> = {
   d: 'right',
   arrowright: 'right',
   e: 'interact',
+  shift: 'sprint',
 }
 
 /** Tracks currently-held movement/interact keys in a ref (no re-render per keystroke). */
 export function useKeyboardControls() {
-  const state = useRef<ControlState>({ up: false, down: false, left: false, right: false, interact: false })
+  const state = useRef<ControlState>({ up: false, down: false, left: false, right: false, interact: false, sprint: false })
   const onInteractPress = useRef<(() => void) | null>(null)
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export function useKeyboardControls() {
       state.current[key] = false
     }
     const handleBlur = () => {
-      state.current = { up: false, down: false, left: false, right: false, interact: false }
+      state.current = { up: false, down: false, left: false, right: false, interact: false, sprint: false }
     }
     window.addEventListener('keydown', handleDown)
     window.addEventListener('keyup', handleUp)

@@ -20,7 +20,7 @@ export function propsToRecord(props?: TiledProperty[]): Record<string, string | 
 }
 
 export function tiledObjectRect(obj: TiledObject) {
-  return { x: obj.x, y: obj.y, width: obj.width, height: obj.height }
+  return { x: obj.x, y: obj.y, width: obj.width, height: obj.height, name: obj.name }
 }
 
 export function mapPixelSize(map: TiledMap) {

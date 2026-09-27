@@ -5,7 +5,9 @@ import dynamic from 'next/dynamic'
 import { Github, Mail, RotateCcw } from 'lucide-react'
 import { CONTACT } from '@/lib/data/contact'
 
-const Background3D = dynamic(() => import('@/game/fx/Background3D').then((m) => m.Background3D), { ssr: false })
+const CinematicPortalScene = dynamic(() => import('@/game/world3d/CinematicPortalScene').then((m) => m.CinematicPortalScene), {
+  ssr: false,
+})
 
 interface EndingCinematicProps {
   onReplay: () => void
@@ -14,7 +16,7 @@ interface EndingCinematicProps {
 export function EndingCinematic({ onReplay }: EndingCinematicProps) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-[#05050a]">
-      <Background3D accentColor="#06B6D4" ambient="portal" />
+      <CinematicPortalScene color="#06B6D4" />
 
       <div className="relative z-10 flex flex-col items-center gap-6 px-4 text-center">
         <motion.p
