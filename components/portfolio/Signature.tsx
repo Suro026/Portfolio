@@ -21,7 +21,7 @@ export function Signature({ name, className }: SignatureProps) {
       transition={{ duration: 1.4, delay: 0.3, ease: [0.65, 0, 0.35, 1] }}
       className={cn('inline-block', className)}
     >
-      <span className={cn(caveat.className, 'text-4xl leading-none text-primary')}>{name}</span>
+      <span className={cn(caveat.className, 'text-4xl leading-none text-amber-500 dark:text-amber-400')}>{name}</span>
     </motion.div>
   )
 }
