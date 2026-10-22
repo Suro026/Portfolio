@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { Download, Github, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { MonogramAvatar } from './MonogramAvatar'
@@ -22,10 +23,17 @@ export function Sidebar() {
         <MonogramAvatar className="h-16 w-16" />
 
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          <h1 className="font-serif text-2xl font-bold tracking-tight text-foreground">
             {PROFILE.name} <span className="font-normal text-muted-foreground">({PROFILE.shortName})</span>
           </h1>
           <p className="mt-1 text-sm font-medium text-primary">{PROFILE.role}</p>
+          <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
+            Available for work
+          </span>
         </div>
 
         <Signature name={PROFILE.name} />
@@ -39,18 +47,21 @@ export function Sidebar() {
                 <a
                   href={`#${section.id}`}
                   className={cn(
-                    'group flex items-center gap-3 text-xs font-semibold uppercase tracking-widest transition-colors',
+                    'group relative flex items-center gap-3 text-xs font-semibold uppercase tracking-widest transition-colors',
                     active === section.id ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
                   )}
                 >
-                  <span
-                    className={cn(
-                      'h-px bg-current transition-all duration-300',
-                      active === section.id
-                        ? 'w-10 bg-amber-500 text-amber-500 dark:bg-amber-400 dark:text-amber-400'
-                        : 'w-5',
+                  <span className="relative h-px w-10">
+                    {active === section.id ? (
+                      <motion.span
+                        layoutId="sidebar-nav-pill"
+                        className="absolute inset-y-0 left-0 h-px w-10 bg-primary"
+                        transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                      />
+                    ) : (
+                      <span className="absolute inset-y-0 left-0 h-px w-5 bg-current transition-all duration-300 group-hover:w-10" />
                     )}
-                  />
+                  </span>
                   {section.label}
                 </a>
               </li>
@@ -61,12 +72,12 @@ export function Sidebar() {
 
       <div className="mt-10 flex flex-col gap-4 px-6 pb-10 lg:px-0 lg:pb-0">
         <div className="flex items-center gap-2">
-          <Button asChild variant="outline" size="icon" className="rounded-full">
+          <Button asChild variant="outline" size="icon" className="rounded-full transition-transform duration-200 hover:-translate-y-0.5 hover:text-primary">
             <a href={CONTACT.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
               <Github className="h-[1.1rem] w-[1.1rem]" />
             </a>
           </Button>
-          <Button asChild variant="outline" size="icon" className="rounded-full">
+          <Button asChild variant="outline" size="icon" className="rounded-full transition-transform duration-200 hover:-translate-y-0.5 hover:text-primary">
             <a href={`mailto:${CONTACT.email}`} aria-label="Send an email">
               <Mail className="h-[1.1rem] w-[1.1rem]" />
             </a>
