@@ -46,7 +46,9 @@ export function Sidebar() {
                   <span
                     className={cn(
                       'h-px bg-current transition-all duration-300',
-                      active === section.id ? 'w-10 bg-primary text-primary' : 'w-5',
+                      active === section.id
+                        ? 'w-10 bg-amber-500 text-amber-500 dark:bg-amber-400 dark:text-amber-400'
+                        : 'w-5',
                     )}
                   />
                   {section.label}
