@@ -1,4 +1,5 @@
 import { Sidebar } from '@/components/portfolio/Sidebar'
+import { Hero } from '@/components/portfolio/Hero'
 import { About } from '@/components/portfolio/About'
 import { Experience } from '@/components/portfolio/Experience'
 import { Projects } from '@/components/portfolio/Projects'
@@ -11,6 +12,7 @@ export default function Home() {
     <div className="mx-auto flex max-w-6xl flex-col lg:flex-row lg:items-start">
       <Sidebar />
       <main className="min-w-0 flex-1 px-6 py-10 sm:px-10 lg:px-16 lg:py-20">
+        <Hero />
         <About />
         <Experience />
         <Projects />

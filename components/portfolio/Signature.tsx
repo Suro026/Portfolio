@@ -11,17 +11,40 @@ interface SignatureProps {
   className?: string
 }
 
-/** A "self-writing" signature — a cursive rendering of the name revealed
- * left-to-right on mount, like a pen tracing it out. */
+/** A "self-writing" signature — the name is traced on stroke-first, like a
+ * pen tracing ink, then fills in with the accent color. */
 export function Signature({ name, className }: SignatureProps) {
+  const width = name.length * 24 + 24
+  const perimeter = name.length * 70
+
   return (
-    <motion.div
-      initial={{ clipPath: 'inset(0 100% 0 0)' }}
-      animate={{ clipPath: 'inset(0 0% 0 0)' }}
-      transition={{ duration: 1.4, delay: 0.3, ease: [0.65, 0, 0.35, 1] }}
-      className={cn('inline-block', className)}
+    <svg
+      viewBox={`0 0 ${width} 56`}
+      width={width}
+      height={56}
+      className={cn('overflow-visible', className)}
+      role="img"
+      aria-label={name}
     >
-      <span className={cn(caveat.className, 'text-4xl leading-none text-amber-500 dark:text-amber-400')}>{name}</span>
-    </motion.div>
+      <motion.text
+        x={8}
+        y={40}
+        className={caveat.className}
+        fontSize={34}
+        fontWeight={600}
+        fill="var(--color-primary)"
+        stroke="var(--color-primary)"
+        strokeWidth={1}
+        strokeDasharray={perimeter}
+        initial={{ strokeDashoffset: perimeter, fillOpacity: 0 }}
+        animate={{ strokeDashoffset: 0, fillOpacity: 1 }}
+        transition={{
+          strokeDashoffset: { duration: 1.6, delay: 0.3, ease: [0.5, 0, 0.3, 1] },
+          fillOpacity: { duration: 0.6, delay: 1.6 },
+        }}
+      >
+        {name}
+      </motion.text>
+    </svg>
   )
 }
