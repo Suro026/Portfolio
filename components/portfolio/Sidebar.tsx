@@ -1,9 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Download, GraduationCap, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { MonogramAvatar } from './MonogramAvatar'
 import { Signature } from './Signature'
 import { CopyEmailButton } from './CopyEmailButton'
 import { PROFILE, EDUCATION } from '@/lib/data/resume'
@@ -19,7 +19,14 @@ export function Sidebar() {
   return (
     <aside className="border-border/60 lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-[22rem] lg:shrink-0 lg:flex-col lg:justify-between lg:border-r lg:py-16 lg:pl-10 lg:pr-8">
       <div className="flex flex-col gap-6 px-6 pt-10 lg:px-0 lg:pt-0">
-        <MonogramAvatar className="h-16 w-16" />
+        <Image
+          src="/avatar.jpg"
+          alt={PROFILE.name}
+          width={320}
+          height={320}
+          priority
+          className="h-16 w-16 rounded-2xl object-cover ring-1 ring-border"
+        />
 
         <div>
           <h1 className="font-serif text-2xl font-bold tracking-tight text-foreground">
