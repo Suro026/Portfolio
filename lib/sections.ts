@@ -4,11 +4,14 @@ export interface SectionDef {
 }
 
 export const SECTIONS: SectionDef[] = [
+  { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
   { id: 'skills', label: 'Skills' },
-  { id: 'education', label: 'Education' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'achievements', label: 'Achievements' },
+  { id: 'design-work', label: 'Design Work' },
+  { id: 'contact', label: 'Contact' },
 ]
 
 export const SECTION_IDS = SECTIONS.map((s) => s.id)

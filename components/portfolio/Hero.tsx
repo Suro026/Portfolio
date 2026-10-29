@@ -72,16 +72,37 @@ function HeroArt() {
 
 export function Hero() {
   return (
-    <section className="flex flex-col items-center gap-10 py-10 text-center sm:py-16 lg:flex-row lg:items-center lg:gap-16 lg:text-left">
+    <section
+      id="home"
+      className="flex scroll-mt-20 flex-col items-center gap-10 py-10 text-center sm:py-16 lg:flex-row lg:items-center lg:gap-16 lg:text-left"
+    >
       <div className="flex-1">
-        <p className="text-sm font-semibold uppercase tracking-widest text-primary">Hey, I&apos;m {PROFILE.name}</p>
-        <h2 className="mt-3 font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">{PROFILE.role}</h2>
-        <p className="mx-auto mt-4 max-w-md text-balance text-muted-foreground lg:mx-0">{PROFILE.tagline}</p>
-        <div className="mt-8 flex items-center justify-center gap-4 lg:justify-start">
+        <p className="text-sm font-semibold uppercase tracking-widest text-primary">
+          AI Engineering · IoT · Product Design
+        </p>
+        <h2 className="mt-3 font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+          Building intelligent ideas into real-world experiences.
+        </h2>
+        <p className="mx-auto mt-4 max-w-md text-balance text-muted-foreground lg:mx-0">
+          I&apos;m {PROFILE.shortName}, a CSE (AI &amp; ML) student, IoT systems builder, and UI/UX designer from
+          Kolkata. I build practical AI-powered solutions, experiment with hardware, and design digital products
+          that put people first.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
           <Button asChild size="lg" className="gap-2">
-            <a href="#experience">View Experience</a>
+            <a href="#projects">Explore My Work</a>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="gap-2">
+            <a href="#contact">Let&apos;s Connect</a>
           </Button>
         </div>
+        <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+          </span>
+          Open to Internships &amp; Collaborations
+        </span>
       </div>
       <HeroArt />
     </section>

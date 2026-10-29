@@ -1,10 +1,12 @@
 import { Sidebar } from '@/components/portfolio/Sidebar'
 import { Hero } from '@/components/portfolio/Hero'
 import { About } from '@/components/portfolio/About'
-import { Experience } from '@/components/portfolio/Experience'
-import { Projects } from '@/components/portfolio/Projects'
 import { Skills } from '@/components/portfolio/Skills'
-import { Education } from '@/components/portfolio/Education'
+import { Projects } from '@/components/portfolio/Projects'
+import { Experience } from '@/components/portfolio/Experience'
+import { Achievements } from '@/components/portfolio/Achievements'
+import { DesignWork } from '@/components/portfolio/DesignWork'
+import { Contact } from '@/components/portfolio/Contact'
 import { Footer } from '@/components/portfolio/Footer'
 
 export default function Home() {
@@ -14,10 +16,12 @@ export default function Home() {
       <main className="min-w-0 flex-1 px-6 py-10 sm:px-10 lg:px-16 lg:py-20">
         <Hero />
         <About />
-        <Experience />
-        <Projects />
         <Skills />
-        <Education />
+        <Projects />
+        <Experience />
+        <Achievements />
+        <DesignWork />
+        <Contact />
         <Footer />
       </main>
     </div>

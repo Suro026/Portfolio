@@ -15,6 +15,12 @@ export function Skills() {
                   {item}
                 </Badge>
               ))}
+              {group.learning?.map((item) => (
+                <Badge key={item} variant="outline" className="gap-1 border-dashed font-normal text-muted-foreground">
+                  {item}
+                  <span className="text-[0.65rem] uppercase tracking-wide text-primary">learning</span>
+                </Badge>
+              ))}
             </div>
           </div>
         ))}
