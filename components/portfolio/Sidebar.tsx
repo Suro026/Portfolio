@@ -1,17 +1,17 @@
 'use client'
 
-import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Download, Github, Linkedin, Mail, MapPin } from 'lucide-react'
+import { Download, GraduationCap, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { MonogramAvatar } from './MonogramAvatar'
 import { Signature } from './Signature'
 import { ThemeToggle } from './ThemeToggle'
 import { CopyEmailButton } from './CopyEmailButton'
-import { PROFILE } from '@/lib/data/resume'
+import { PROFILE, EDUCATION } from '@/lib/data/resume'
 import { CONTACT } from '@/lib/data/contact'
 import { SECTIONS, SECTION_IDS } from '@/lib/sections'
 import { useActiveSection } from '@/hooks/use-active-section'
+import { downloadCv } from '@/lib/cv'
 import { cn } from '@/lib/utils'
 
 export function Sidebar() {
@@ -27,10 +27,6 @@ export function Sidebar() {
             {PROFILE.name} <span className="font-normal text-muted-foreground">({PROFILE.shortName})</span>
           </h1>
           <p className="mt-1 text-sm font-medium text-primary">{PROFILE.role}</p>
-          <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
-            <MapPin className="h-3 w-3" />
-            {PROFILE.location}
-          </p>
           <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
@@ -40,9 +36,24 @@ export function Sidebar() {
           </span>
         </div>
 
+        <p className="text-balance text-sm leading-relaxed text-muted-foreground">{PROFILE.bio}</p>
+
         <Signature name={PROFILE.name} />
 
-        <p className="text-balance text-sm leading-relaxed text-muted-foreground">{PROFILE.bio}</p>
+        <hr className="border-border/60" />
+
+        <ul className="grid gap-1.5 text-xs text-muted-foreground">
+          <li className="flex items-center gap-2">
+            <MapPin className="h-3.5 w-3.5 shrink-0" />
+            {PROFILE.location}
+          </li>
+          {EDUCATION[0] && (
+            <li className="flex items-center gap-2">
+              <GraduationCap className="h-3.5 w-3.5 shrink-0" />
+              {EDUCATION[0].status}
+            </li>
+          )}
+        </ul>
 
         <nav aria-label="Section navigation" className="mt-2 hidden lg:block">
           <ul className="flex flex-col gap-3">
@@ -76,18 +87,18 @@ export function Sidebar() {
 
       <div className="mt-10 flex flex-col gap-4 px-6 pb-10 lg:px-0 lg:pb-0">
         <div className="flex items-center gap-2">
-          <Button asChild variant="outline" size="icon" className="rounded-full transition-transform duration-200 hover:-translate-y-0.5 hover:text-primary">
+          <Button asChild variant="ghost" size="icon" className="rounded-md text-muted-foreground transition-transform duration-200 hover:-translate-y-0.5 hover:bg-secondary hover:text-foreground">
             <a href={CONTACT.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
               <Github className="h-[1.1rem] w-[1.1rem]" />
             </a>
           </Button>
-          <Button asChild variant="outline" size="icon" className="rounded-full transition-transform duration-200 hover:-translate-y-0.5 hover:text-primary">
+          <Button asChild variant="ghost" size="icon" className="rounded-md text-muted-foreground transition-transform duration-200 hover:-translate-y-0.5 hover:bg-secondary hover:text-foreground">
             <a href={`mailto:${CONTACT.email}`} aria-label="Send an email">
               <Mail className="h-[1.1rem] w-[1.1rem]" />
             </a>
           </Button>
           {CONTACT.linkedin && (
-            <Button asChild variant="outline" size="icon" className="rounded-full transition-transform duration-200 hover:-translate-y-0.5 hover:text-primary">
+            <Button asChild variant="ghost" size="icon" className="rounded-md text-muted-foreground transition-transform duration-200 hover:-translate-y-0.5 hover:bg-secondary hover:text-foreground">
               <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
                 <Linkedin className="h-[1.1rem] w-[1.1rem]" />
               </a>
@@ -97,11 +108,9 @@ export function Sidebar() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <Button asChild size="sm" className="gap-2">
-            <Link href="/resume" target="_blank">
-              <Download className="h-3.5 w-3.5" />
-              Download CV
-            </Link>
+          <Button type="button" variant="ink" size="sm" className="gap-2" onClick={downloadCv}>
+            <Download className="h-3.5 w-3.5" />
+            Download CV
           </Button>
           <CopyEmailButton email={CONTACT.email} />
         </div>

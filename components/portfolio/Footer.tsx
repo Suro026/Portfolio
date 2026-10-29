@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { CONTACT } from '@/lib/data/contact'
 
 export function Footer() {
@@ -8,6 +9,10 @@ export function Footer() {
         <a href={CONTACT.github} target="_blank" rel="noreferrer" className="link-underline text-foreground">
           GitHub
         </a>
+        {' · '}
+        <Link href="/resume" target="_blank" className="link-underline text-foreground">
+          Printable résumé
+        </Link>
         .
       </p>
     </footer>

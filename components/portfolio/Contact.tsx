@@ -20,7 +20,7 @@ export function Contact() {
         </p>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Button asChild className="gap-2">
+          <Button asChild variant="ink" className="gap-2">
             <a href={`mailto:${CONTACT.email}`}>
               <Mail className="h-4 w-4" />
               Email me

@@ -1,110 +1,46 @@
 'use client'
 
-import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { Code2, Heart, Mail, MessageCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { PROFILE } from '@/lib/data/resume'
+import { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
+import MascotPortfolioHero from '@/components/ui/mascot-portfolio-hero'
 
-const QUIPS = ['shipped ✓', 'tests passing', 'training model…', '0 bugs (so far)', 'merged to main', 'deploying…']
-
-function OrbitIcon({ icon, radius, duration, delay }: { icon: ReactNode; radius: number; duration: number; delay: number }) {
-  return (
-    <div
-      className="absolute left-1/2 top-1/2 h-0 w-0 motion-reduce:hidden"
-      style={
-        {
-          animation: `spt-orbit ${duration}s linear infinite`,
-          animationDelay: `${delay}s`,
-          '--orbit-radius': `${radius}px`,
-        } as CSSProperties
-      }
-    >
-      <div className="flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card text-primary shadow-sm">
-        {icon}
-      </div>
-    </div>
-  )
-}
-
-function HeroArt() {
-  const [quip, setQuip] = useState(0)
-
-  useEffect(() => {
-    const id = setInterval(() => setQuip((n) => (n + 1) % QUIPS.length), 2200)
-    return () => clearInterval(id)
-  }, [])
-
-  return (
-    <div className="relative mx-auto h-64 w-64 shrink-0 sm:h-72 sm:w-72">
-      <OrbitIcon icon={<Mail className="h-4 w-4" />} radius={118} duration={14} delay={0} />
-      <OrbitIcon icon={<MessageCircle className="h-4 w-4" />} radius={118} duration={14} delay={-7} />
-      <OrbitIcon icon={<Code2 className="h-4 w-4" />} radius={92} duration={11} delay={-2.5} />
-      <OrbitIcon icon={<Heart className="h-4 w-4" />} radius={92} duration={11} delay={-8} />
-
-      <div className="absolute left-1/2 top-1/2 flex flex-col items-center gap-2 [animation:spt-bob_4s_ease-in-out_infinite] motion-reduce:[animation:none] motion-reduce:-translate-x-1/2 motion-reduce:-translate-y-1/2">
-        <div className="flex h-28 w-28 items-center justify-center rounded-full bg-accent">
-          <div className="flex gap-3">
-            <span className="h-2.5 w-2 origin-center animate-[spt-blink_5s_ease-in-out_infinite] rounded-full bg-accent-foreground motion-reduce:animate-none" />
-            <span className="h-2.5 w-2 origin-center animate-[spt-blink_5s_ease-in-out_infinite] rounded-full bg-accent-foreground motion-reduce:animate-none" />
-          </div>
-        </div>
-        <div className="flex h-6 w-20 items-center justify-center rounded-md border border-border bg-card">
-          <span className="h-1.5 w-1.5 animate-[spt-led_1.8s_ease-in-out_infinite] rounded-full bg-emerald-500 motion-reduce:animate-none" />
-        </div>
-      </div>
-
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={quip}
-          initial={{ opacity: 0, y: 6, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -6, scale: 0.9 }}
-          transition={{ duration: 0.35 }}
-          className="absolute right-0 top-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm"
-        >
-          {QUIPS[quip]}
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  )
-}
+const LIGHT = { paper: '#faf6f0', ink: '#1f1512', accent: '#e5553b' }
+const DARK = { paper: '#15110e', ink: '#f1ebe3', accent: '#ec6b4f' }
 
 export function Hero() {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+
+  const palette = mounted && resolvedTheme === 'light' ? LIGHT : DARK
+
   return (
-    <section
-      id="home"
-      className="flex scroll-mt-20 flex-col items-center gap-10 py-10 text-center sm:py-16 lg:flex-row lg:items-center lg:gap-16 lg:text-left"
-    >
-      <div className="flex-1">
-        <p className="text-sm font-semibold uppercase tracking-widest text-primary">
-          AI Engineering · IoT · Product Design
-        </p>
-        <h2 className="mt-3 font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-          Building intelligent ideas into real-world experiences.
-        </h2>
-        <p className="mx-auto mt-4 max-w-md text-balance text-muted-foreground lg:mx-0">
-          I&apos;m {PROFILE.shortName}, a CSE (AI &amp; ML) student, IoT systems builder, and UI/UX designer from
-          Kolkata. I build practical AI-powered solutions, experiment with hardware, and design digital products
-          that put people first.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-          <Button asChild size="lg" className="gap-2">
-            <a href="#projects">Explore My Work</a>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="gap-2">
-            <a href="#contact">Let&apos;s Connect</a>
-          </Button>
-        </div>
-        <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          Open to Internships &amp; Collaborations
-        </span>
-      </div>
-      <HeroArt />
+    <section id="home" className="-mx-6 scroll-mt-20 sm:-mx-10 lg:-mx-16">
+      <MascotPortfolioHero
+        height="70svh"
+        minHeight="560px"
+        index="KOL/IN"
+        discipline="AI, IoT & Design"
+        tagline="Build it real."
+        collection={['Selected', 'Projects']}
+        reel={['Kolkata, India', 'AI · IoT · Design']}
+        year="AI"
+        initials="SS"
+        badge="Open to work"
+        line2="Systems"
+        line3="Builder"
+        word="Design"
+        verticalTag="IOT"
+        bracketed="K"
+        seekingLabel="Open to*"
+        seeking="Internships & Collabs"
+        href="#contact"
+        services={['Applied AI', 'IoT Prototyping', 'UI/UX Design', 'Full-Stack Dev']}
+        greetings={["Hi, I'm Suro!", "Let's build something real.", 'Psst — open to internships.', "Okay, that's enough poking :)"]}
+        accent={palette.accent}
+        paper={palette.paper}
+        ink={palette.ink}
+      />
     </section>
   )
 }
