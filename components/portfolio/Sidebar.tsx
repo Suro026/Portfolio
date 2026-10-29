@@ -5,7 +5,6 @@ import { Download, GraduationCap, Github, Linkedin, Mail, MapPin } from 'lucide-
 import { Button } from '@/components/ui/button'
 import { MonogramAvatar } from './MonogramAvatar'
 import { Signature } from './Signature'
-import { ThemeToggle } from './ThemeToggle'
 import { CopyEmailButton } from './CopyEmailButton'
 import { PROFILE, EDUCATION } from '@/lib/data/resume'
 import { CONTACT } from '@/lib/data/contact'
@@ -104,7 +103,6 @@ export function Sidebar() {
               </a>
             </Button>
           )}
-          <ThemeToggle />
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
