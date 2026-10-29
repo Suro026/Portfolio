@@ -1,20 +1,19 @@
-import { Bot, Camera, ExternalLink, Github, GraduationCap, Heart, MessageCircle, Radar, TrendingUp } from 'lucide-react'
+import { Camera, ExternalLink, Github, Palette, QrCode, Share2, Ticket, TrendingUp } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Section } from './Section'
 import { PROJECTS, type ProjectData } from '@/lib/data/projects'
 
 const CATEGORY_ICON: Record<string, React.ComponentType<{ className?: string }>> = {
-  'IoT / Smart Mobility': Radar,
-  'Robotics / IoT': Bot,
-  'Digital Product / Healthcare': Heart,
-  'AI / Conversational Experiences': MessageCircle,
+  'Desktop App / Freelance Tools': Share2,
+  'Mobile App / AI for Artisans': Palette,
+  'Open Source / Web Storefront': QrCode,
+  'Campus Events / Full-Stack Platform': Ticket,
   'Creator Project / Cultural Discovery': Camera,
-  'EdTech / AI': GraduationCap,
   'Machine Learning / Flask': TrendingUp,
 }
 
 function ProjectCard({ project }: { project: ProjectData }) {
-  const Icon = CATEGORY_ICON[project.category] ?? Bot
+  const Icon = CATEGORY_ICON[project.category] ?? Camera
 
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-primary/40">
