@@ -1,50 +1,42 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Caveat } from 'next/font/google'
 import { cn } from '@/lib/utils'
-
-const caveat = Caveat({ subsets: ['latin'], weight: ['600'] })
+import { signatureOf } from '@/lib/signature'
 
 interface SignatureProps {
   name: string
   className?: string
 }
 
-/** A "self-writing" signature — the name is traced on stroke-first, like a
- * pen tracing ink, then fills in with the accent color. */
+/** A "self-writing" signature — an illegible, confident scribble generated
+ * from the name (same algorithm as the reference), traced on like a pen. */
 export function Signature({ name, className }: SignatureProps) {
-  const width = name.length * 24 + 24
-  const perimeter = name.length * 70
+  const [run, setRun] = useState(0)
+  const sig = signatureOf(name)
 
   return (
-    <svg
-      viewBox={`0 0 ${width} 56`}
-      width={width}
-      height={56}
-      className={cn('overflow-visible', className)}
-      role="img"
-      aria-label={name}
+    <button
+      type="button"
+      onClick={() => setRun((n) => n + 1)}
+      aria-label={`Signature of ${name}. Click to sign again.`}
+      title="Sign again"
+      className={cn('inline-block w-max rounded-md p-1 text-foreground transition-colors hover:bg-secondary', className)}
     >
-      <motion.text
-        x={8}
-        y={40}
-        className={caveat.className}
-        fontSize={34}
-        fontWeight={600}
-        fill="var(--color-primary)"
-        stroke="var(--color-primary)"
-        strokeWidth={1}
-        strokeDasharray={perimeter}
-        initial={{ strokeDashoffset: perimeter, fillOpacity: 0 }}
-        animate={{ strokeDashoffset: 0, fillOpacity: 1 }}
-        transition={{
-          strokeDashoffset: { duration: 1.6, delay: 0.3, ease: [0.5, 0, 0.3, 1] },
-          fillOpacity: { duration: 0.6, delay: 1.6 },
-        }}
-      >
-        {name}
-      </motion.text>
-    </svg>
+      <motion.svg key={run} viewBox={`0 0 ${sig.width} 52`} width={sig.width * 1.25} height={65} aria-hidden="true">
+        <motion.path
+          d={sig.d}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.35}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.5, delay: 0.2, ease: [0.5, 0, 0.3, 1] }}
+        />
+      </motion.svg>
+    </button>
   )
 }
