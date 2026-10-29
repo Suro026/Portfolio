@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Download, Github, Mail } from 'lucide-react'
+import { Download, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { MonogramAvatar } from './MonogramAvatar'
 import { Signature } from './Signature'
@@ -27,12 +27,16 @@ export function Sidebar() {
             {PROFILE.name} <span className="font-normal text-muted-foreground">({PROFILE.shortName})</span>
           </h1>
           <p className="mt-1 text-sm font-medium text-primary">{PROFILE.role}</p>
+          <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+            <MapPin className="h-3 w-3" />
+            {PROFILE.location}
+          </p>
           <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
             </span>
-            Available for work
+            Open to Internships &amp; Collaborations
           </span>
         </div>
 
@@ -82,6 +86,13 @@ export function Sidebar() {
               <Mail className="h-[1.1rem] w-[1.1rem]" />
             </a>
           </Button>
+          {CONTACT.linkedin && (
+            <Button asChild variant="outline" size="icon" className="rounded-full transition-transform duration-200 hover:-translate-y-0.5 hover:text-primary">
+              <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+                <Linkedin className="h-[1.1rem] w-[1.1rem]" />
+              </a>
+            </Button>
+          )}
           <ThemeToggle />
         </div>
 

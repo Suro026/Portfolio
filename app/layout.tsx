@@ -9,14 +9,15 @@ const geist = Geist({ subsets: ['latin'] })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono' })
 
 export const metadata: Metadata = {
-  title: 'Surajit — Developer Portfolio',
+  title: 'Surajit Sadhukhan | AI Engineer, IoT Builder & UI/UX Designer',
   description:
-    'Portfolio of Surajit (Suro) — Aspiring AI Engineer, IoT Systems Builder, and UI/UX Designer. Projects, experience, and skills.',
-  keywords: ['AI Engineer', 'IoT Systems', 'UI/UX Design', 'Machine Learning', 'Developer Portfolio'],
-  authors: [{ name: 'Surajit' }],
+    'Portfolio of Surajit Sadhukhan (Suro), a CSE AI & ML student building applied AI projects, IoT systems, and user-centered digital experiences in Kolkata, India.',
+  keywords: ['AI Engineer', 'IoT Systems', 'UI/UX Design', 'Machine Learning', 'Developer Portfolio', 'Kolkata'],
+  authors: [{ name: 'Surajit Sadhukhan' }],
   openGraph: {
-    title: 'Surajit — Developer Portfolio',
-    description: 'Aspiring AI Engineer, IoT Systems Builder, and UI/UX Designer.',
+    title: 'Surajit Sadhukhan | AI Engineer, IoT Builder & UI/UX Designer',
+    description:
+      'Portfolio of Surajit Sadhukhan (Suro), a CSE AI & ML student building applied AI projects, IoT systems, and user-centered digital experiences in Kolkata, India.',
     type: 'website',
   },
 }

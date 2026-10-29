@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { PROFILE, EXPERIENCE, EDUCATION } from '@/lib/data/resume'
 import { SKILL_GROUPS } from '@/lib/data/skills'
 import { PROJECTS } from '@/lib/data/projects'
-import { HACKATHONS } from '@/lib/data/hackathons'
+import { ACHIEVEMENTS } from '@/lib/data/achievements'
 import { CONTACT } from '@/lib/data/contact'
 
 export default function ResumePage() {
@@ -45,7 +45,7 @@ export default function ResumePage() {
                   <h3 className="text-sm font-semibold text-foreground">
                     {entry.title} · {entry.org}
                   </h3>
-                  <span className="shrink-0 text-xs text-muted-foreground">{entry.period}</span>
+                  {entry.period && <span className="shrink-0 text-xs text-muted-foreground">{entry.period}</span>}
                 </div>
                 <ul className="mt-1 list-disc pl-4 text-sm text-muted-foreground">
                   {entry.points.map((point) => (
@@ -63,7 +63,9 @@ export default function ResumePage() {
             {PROJECTS.map((project) => (
               <div key={project.id}>
                 <h3 className="text-sm font-semibold text-foreground">{project.title}</h3>
-                <p className="text-sm text-muted-foreground">{project.tagline}</p>
+                <p className="text-sm text-muted-foreground">
+                  {project.category} — {project.status}
+                </p>
               </div>
             ))}
           </div>
@@ -89,20 +91,19 @@ export default function ResumePage() {
                   <h3 className="text-sm font-semibold text-foreground">{entry.degree}</h3>
                   <p className="text-sm text-muted-foreground">{entry.institution}</p>
                 </div>
-                <span className="shrink-0 text-xs text-muted-foreground">{entry.period}</span>
+                <span className="shrink-0 text-xs text-muted-foreground">{entry.status}</span>
               </div>
             ))}
           </div>
         </section>
 
         <section>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Hackathons &amp; Recognition
-          </h2>
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Achievements</h2>
           <div className="flex flex-wrap gap-1.5">
-            {HACKATHONS.map((entry) => (
+            {ACHIEVEMENTS.map((entry) => (
               <Badge key={entry.id} variant="secondary" className="font-normal">
-                {entry.title} — {entry.place}
+                {entry.title}
+                {entry.year ? ` — ${entry.year}` : ''}
               </Badge>
             ))}
           </div>
