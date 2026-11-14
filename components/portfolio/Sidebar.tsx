@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Download, GraduationCap, Github, Linkedin, Mail, MapPin } from 'lucide-react'
+import { Coffee, Download, GraduationCap, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Signature } from './Signature'
 import { CopyEmailButton } from './CopyEmailButton'
@@ -101,6 +101,11 @@ export function Sidebar() {
           <Button asChild variant="ghost" size="icon" className="rounded-md text-muted-foreground transition-transform duration-200 hover:-translate-y-0.5 hover:bg-secondary hover:text-foreground">
             <a href={`mailto:${CONTACT.email}`} aria-label="Send an email">
               <Mail className="h-[1.1rem] w-[1.1rem]" />
+            </a>
+          </Button>
+          <Button asChild variant="ghost" size="icon" className="rounded-md text-muted-foreground transition-transform duration-200 hover:-translate-y-0.5 hover:bg-secondary hover:text-foreground">
+            <a href={CONTACT.buymeacoffee} target="_blank" rel="noreferrer" aria-label="Buy me a coffee">
+              <Coffee className="h-[1.1rem] w-[1.1rem]" />
             </a>
           </Button>
           {CONTACT.linkedin && (

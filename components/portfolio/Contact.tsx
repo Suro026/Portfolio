@@ -1,4 +1,4 @@
-import { Figma, Github, Linkedin, Mail, MapPin } from 'lucide-react'
+import { Coffee, Figma, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Section } from './Section'
 import { CopyEmailButton } from './CopyEmailButton'
@@ -30,6 +30,11 @@ export function Contact() {
           <Button asChild variant="outline" size="icon" className="rounded-full">
             <a href={CONTACT.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
               <Github className="h-[1.1rem] w-[1.1rem]" />
+            </a>
+          </Button>
+          <Button asChild variant="outline" size="icon" className="rounded-full">
+            <a href={CONTACT.buymeacoffee} target="_blank" rel="noreferrer" aria-label="Buy me a coffee">
+              <Coffee className="h-[1.1rem] w-[1.1rem]" />
             </a>
           </Button>
           {CONTACT.linkedin && (
