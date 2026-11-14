@@ -3,6 +3,7 @@
 export const CONTACT = {
   email: 'surajitsadhukhan870@gmail.com',
   github: 'https://github.com/suro026',
+  buymeacoffee: 'https://buymeacoffee.com/surajitsadu',
   linkedin: null as string | null,
   figma: null as string | null,
 }
