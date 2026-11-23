@@ -102,17 +102,23 @@ export default function Home() {
           tag: 'in progress',
         },
         {
-          name: 'PlanSphere',
-          tagline: 'One pass for the whole fest.',
-          kind: 'Full-Stack · Campus Events',
+          name: 'Keystone',
+          tagline: 'Free GATE mock tests, built from the real papers.',
+          kind: 'Full-Stack · Exam Prep',
           year: '2026',
           summary:
-            'Registrations, gate scanning, live tournament scoring and [publicly verifiable certificates] for a college fest — all under one roof *instead of five spreadsheets*.',
-          challenge: 'Role-based access from Event Head down to Volunteer, with no direct database writes.',
-          images: tiles('#3f6b4a'),
-          screens: ['stats', 'feed', 'detail'],
-          accent: '#3f6b4a',
-          tag: 'in progress',
+            'Year-wise, subject-wise, mixed and full-length GATE CS/DA mocks, marked against [the official answer key] the moment you submit. Google/email sign-in syncs your progress, and there’s a Books + Notes library alongside it — *all free, no ads*.',
+          challenge:
+            'Turning scanned 2007–2011 papers — no text layer, no OCR — into clean per-question images: OpenCV rule-detection finds the header/footer lines, with fallback thresholds for pale scans and skewed pages.',
+          stats: [
+            { value: 1235, label: 'scored questions' },
+            { value: 221, label: 'tests passing' },
+          ],
+          href: 'https://keystonee.vercel.app',
+          images: ['/projects/keystone-cover.jpg', '/projects/keystone-feed.jpg', '/projects/keystone-detail.jpg'],
+          screens: ['cover', 'feed', 'detail'],
+          accent: '#6d28d9',
+          tag: 'live',
         },
         {
           name: 'VixaPilot',
