@@ -26,7 +26,7 @@ export default function Home() {
       portrait="/avatar.jpg"
       traits={['curious', 'hands-on', 'precise', 'collaborative', 'hackathon-ready', 'design-minded']}
       greeting="Hello."
-      bio="I build at the intersection of AI, embedded systems, and design. Most of what I make starts as a hackathon prototype under a hard deadline, which taught me to *cut scope to what actually matters* — and that trust in a model is [a design problem as much as a technical one]."
+      bio="I build at the intersection of AI, embedded systems, and design. Currently [UI/UX and Design Lead at GDGoC BIT]. Most of what I make starts as a hackathon prototype under a hard deadline, which taught me to *cut scope to what actually matters* — and that trust in a model is a design problem as much as a technical one."
       educationIntro="Still a student — building real things while I learn."
       education={[
         {
