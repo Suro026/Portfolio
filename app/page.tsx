@@ -112,16 +112,18 @@ export default function Home() {
           tag: 'in progress',
         },
         {
-          name: 'Durgazoid',
-          tagline: 'Every pandal, mapped.',
-          kind: 'Static Site · Culture',
+          name: 'VixaPilot',
+          tagline: 'Plan a trip, don’t just book one.',
+          kind: 'Travel Tech · AI Prototype',
           year: '2025',
           summary:
-            'My Durga Puja documentation project — pandals, food stalls, parking and routes, [started as a school project] and *still growing*, toward a festival-discovery app in 2027.',
-          images: tiles('#8a5a2b'),
-          screens: ['feed', 'cover', 'detail'],
-          accent: '#8a5a2b',
-          tag: 'ongoing',
+            'An AI trip planner, chatbot, hotel search and train search built on Next.js. Give it a destination and it pulls [real attractions, hotels and a Wikipedia summary], then has a local LLM write the itinerary and budget — *no cloud AI bill, runs on your own machine*.',
+          challenge:
+            'The bundled train dataset stores each route as a Python-style string, not valid JSON — parsed with JSON5, then matched against station codes and weekday run-flags to answer "does this train actually run today".',
+          images: ['/projects/vixapilot-cover.jpg', '/projects/vixapilot-feed.jpg', '/projects/vixapilot-detail.jpg'],
+          screens: ['cover', 'feed', 'detail'],
+          accent: '#e2622c',
+          tag: 'prototype',
         },
         {
           name: 'Delta',
