@@ -864,8 +864,8 @@ const CSS = `
 .mgn-card:nth-child(even) .mgn-card-tag{transform:translateX(-50%) rotate(4deg)}
 
 /* flat graphic art (posters, banners) */
-.mgn-flatart{position:relative;width:100%;border-radius:10px;overflow:hidden;box-shadow:0 18px 40px -22px rgba(0,0,0,.4)}
-.mgn-flatart img{display:block;width:100%;height:auto}
+.mgn-flatart{position:relative;width:100%;min-height:1px;border-radius:10px;overflow:hidden;box-shadow:0 18px 40px -22px rgba(0,0,0,.4)}
+.mgn-flatart img{display:block;width:100%;height:auto;min-height:40px}
 
 /* phone */
 .mgn-phone{position:relative;width:100%;aspect-ratio:9/19.5;container-type:inline-size}
@@ -1451,7 +1451,7 @@ function Phone({ p, kind, shift = 0 }: { p: MgnProject; kind: MgnScreen; shift?:
 function FlatArt({ p }: { p: MgnProject }) {
   return (
     <div className="mgn-flatart" role="img" aria-label={p.name}>
-      <img src={photo(p.images[0] || "", 640)} alt={p.name} loading="lazy" decoding="async" draggable={false} />
+      <img src={photo(p.images[0] || "", 640)} alt={p.name} decoding="async" draggable={false} />
     </div>
   )
 }
@@ -1892,7 +1892,7 @@ function Deal({
                   {p.flat ? <FlatArt p={p} /> : <Phone p={p} kind="cover" />}
                 </button>
               ) : (
-                <div aria-label={p.name}>
+                <div aria-label={p.name} style={{ display: "block", width: "100%" }}>
                   {p.flat ? <FlatArt p={p} /> : <Phone p={p} kind="cover" />}
                 </div>
               )}

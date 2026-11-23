@@ -205,7 +205,8 @@ export default function Home() {
       links={[
         { label: 'GitHub', href: CONTACT.github },
         { label: 'Buy Me a Coffee', href: CONTACT.buymeacoffee },
-        { label: 'Download Resume', href: '/resume/surajit-sadhukhan-ai-engineer-resume.pdf' },
+        { label: 'Resume (AI Engineer)', href: '/resume/surajit-sadhukhan-ai-engineer-resume.pdf' },
+        { label: 'Resume (UI/UX)', href: '/resume/surajit-sadhukhan-uiux-resume.pdf' },
       ]}
       letter={
         "Thanks for reading this far.\n\nIf you're building something with AI, hardware, or an interface that needs to feel right, I'd like to hear about it."
