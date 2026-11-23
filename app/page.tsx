@@ -202,7 +202,11 @@ export default function Home() {
       ]}
       thanks="Thank you."
       email={CONTACT.email}
-      links={[{ label: 'GitHub', href: CONTACT.github }]}
+      links={[
+        { label: 'GitHub', href: CONTACT.github },
+        { label: 'Buy Me a Coffee', href: CONTACT.buymeacoffee },
+        { label: 'Download Resume', href: '/resume/surajit-sadhukhan-ai-engineer-resume.pdf' },
+      ]}
       letter={
         "Thanks for reading this far.\n\nIf you're building something with AI, hardware, or an interface that needs to feel right, I'd like to hear about it."
       }
