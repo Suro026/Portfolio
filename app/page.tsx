@@ -145,6 +145,9 @@ export default function Home() {
           tag: 'prototype',
         },
       ]}
+      sections={['cover', 'hello', 'education', 'skills', 'projects', 'cases', 'designs', 'facts', 'thanks']}
+      designsNote="Figma UI work and Canva graphics, alongside the code"
+      designs={[]}
       factsNote="off the clock"
       facts={[
         { doodle: 'camera', text: 'Documents every Durga Puja pandal I can reach, one by one' },

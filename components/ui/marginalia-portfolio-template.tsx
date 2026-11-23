@@ -72,7 +72,7 @@ export type MgnEducation = { title: string; place?: string; period?: string; cir
 export type MgnLanguage = { name: string; level: string; value: number }
 export type MgnFact = { doodle: MgnDoodle; text: string }
 export type MgnLink = { label: string; href: string }
-export type MgnSection = "cover" | "hello" | "education" | "skills" | "projects" | "cases" | "facts" | "thanks"
+export type MgnSection = "cover" | "hello" | "education" | "skills" | "projects" | "cases" | "designs" | "facts" | "thanks"
 
 export type MarginaliaPortfolioTemplateProps = {
   name?: string
@@ -106,6 +106,9 @@ export type MarginaliaPortfolioTemplateProps = {
   books?: { title: string; color: string }[]
   booksNote?: string
   projectsNote?: string
+  /** Visual (non-code) design work — Figma/Canva pieces — shown as a gallery, same card style as Projects but with no case-study drill-down. */
+  designs?: MgnProject[]
+  designsNote?: string
   projects?: MgnProject[]
   facts?: MgnFact[]
   /** A handwritten line beside the Fun Facts heading. */
@@ -702,6 +705,7 @@ const SECTION_LABEL: { [k: string]: string } = {
   skills: "skills",
   projects: "projects",
   cases: "case studies",
+  designs: "design work",
   facts: "fun facts",
   thanks: "thank you",
 }
@@ -1828,12 +1832,26 @@ function Skills({ info, tools, toolNote, intro, skills, books, booksNote }: {
   )
 }
 
-function Deal({ info, projects, note, onOpen }: { info: SheetInfo; projects: MgnProject[]; note: string; onOpen: (i: number) => void }) {
+function Deal({
+  info,
+  projects,
+  note,
+  onOpen,
+  heading = "Projects.",
+  clickable = true,
+}: {
+  info: SheetInfo
+  projects: MgnProject[]
+  note: string
+  onOpen: (i: number) => void
+  heading?: string
+  clickable?: boolean
+}) {
   return (
     <Sheet info={info} className="mgn-deal">
       <div className="mgn-deal-stage">
         <div className="mgn-deal-head">
-          <Heading text="Projects." seed={14} />
+          <Heading text={heading} seed={14} />
           {note && (
             <div className="mgn-deal-note mgn-hand" data-ink>
               <span className="mgn-write">{note}</span>
@@ -1854,9 +1872,15 @@ function Deal({ info, projects, note, onOpen }: { info: SheetInfo; projects: Mgn
                   </svg>
                 </span>
               )}
-              <button onClick={() => onOpen(i)} aria-label={"Open the " + p.name + " case study"}>
-                <Phone p={p} kind="cover" />
-              </button>
+              {clickable ? (
+                <button onClick={() => onOpen(i)} aria-label={"Open the " + p.name + " case study"}>
+                  <Phone p={p} kind="cover" />
+                </button>
+              ) : (
+                <div aria-label={p.name}>
+                  <Phone p={p} kind="cover" />
+                </div>
+              )}
               <span className="mgn-card-label mgn-hand">
                 <span className="mgn-card-write">
                   {i + 1}. {p.name}
@@ -2160,6 +2184,8 @@ export default function MarginaliaPortfolioTemplate(props: MarginaliaPortfolioTe
     booksNote = DEFAULTS.booksNote,
     projectsNote = DEFAULTS.projectsNote,
     projects = DEFAULT_PROJECTS,
+    designs = [],
+    designsNote = "",
     facts = DEFAULTS.facts,
     factsNote = DEFAULTS.factsNote,
     thanks = DEFAULTS.thanks,
@@ -2190,6 +2216,8 @@ export default function MarginaliaPortfolioTemplate(props: MarginaliaPortfolioTe
     if (s === "cases") projects.forEach((p, i) => push("cases", "case-" + i, p.name.toLowerCase(), p.tone || (i % 2 === 0 ? "night" : "paper"), i))
     else if (s === "projects") {
       if (projects.length) push(s, s, SECTION_LABEL[s], "night")
+    } else if (s === "designs") {
+      if (designs.length) push(s, s, SECTION_LABEL[s], "paper")
     } else if (s === "facts") {
       if (facts.length) push(s, s, SECTION_LABEL[s], "night")
     }
@@ -2448,6 +2476,8 @@ export default function MarginaliaPortfolioTemplate(props: MarginaliaPortfolioTe
             return <Deal key={info.id} info={info} projects={projects} note={projectsNote} onOpen={(k) => jump("case-" + k)} />
           case "cases":
             return <Case key={info.id} info={info} p={projects[i]} i={i} flip={caseN++ % 2 === 1} />
+          case "designs":
+            return <Deal key={info.id} info={info} projects={designs} note={designsNote} onOpen={() => {}} heading="Design work." clickable={false} />
           case "facts":
             return <Facts key={info.id} info={info} facts={facts} note={factsNote} />
           case "thanks":
