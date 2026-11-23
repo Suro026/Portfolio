@@ -82,12 +82,14 @@ export default function Home() {
           kind: 'Mobile + AI · Hackathon',
           year: '2026',
           summary:
-            'Built with Team NovaX. Turns a photo and a spoken description into a *listing-ready, bilingual* catalog entry for artisans who have never listed a product online — [a digital enablement layer, not another marketplace].',
-          challenge: 'Making voice-to-catalog work for artisans with low digital literacy and little English.',
-          images: tiles('#e0613a'),
-          screens: ['feed', 'cover', 'detail'],
+            'Led Team NovaX on this. Photo in, spoken description in, and the pipeline — enhance, transcribe, confirm, then a local LLM — outputs a *listing-ready, bilingual* catalog entry, priced from material cost and comparables. 8 languages, [a digital enablement layer, not another marketplace].',
+          challenge:
+            'Listing IDs were client-generated, so anyone could POST someone else’s ID and overwrite or reassign their listing. Fixed to return 404 instead of 403 so a guess can’t even confirm the ID exists — found by probing our own auth flow.',
+          stats: [{ value: 8, label: 'languages' }],
+          images: ['/projects/kalaconnect-cover.jpg', '/projects/kalaconnect-feed.jpg', '/projects/kalaconnect-detail.jpg'],
+          screens: ['cover', 'feed', 'detail'],
           accent: '#e0613a',
-          tag: 'hackathon mvp',
+          tag: 'hackathon prototype',
         },
         {
           name: 'QR Catalog',
