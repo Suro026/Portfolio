@@ -65,6 +65,8 @@ export type MgnProject = {
   /** A handwritten tag written above its phone on the Projects sheet. */
   tag?: string
   href?: string
+  /** Show as a plain framed image (its own aspect ratio) instead of a phone mockup — for flat graphic design work, not app UI. */
+  flat?: boolean
 }
 
 export type MgnTool = { name: string; mark: string; bg: string; fg: string; note?: string }
@@ -861,6 +863,10 @@ const CSS = `
 .mgn-card-tag svg{width:24px;height:30px}
 .mgn-card:nth-child(even) .mgn-card-tag{transform:translateX(-50%) rotate(4deg)}
 
+/* flat graphic art (posters, banners) */
+.mgn-flatart{position:relative;width:100%;border-radius:10px;overflow:hidden;box-shadow:0 18px 40px -22px rgba(0,0,0,.4)}
+.mgn-flatart img{display:block;width:100%;height:auto}
+
 /* phone */
 .mgn-phone{position:relative;width:100%;aspect-ratio:9/19.5;container-type:inline-size}
 .mgn-phone-body{position:absolute;inset:0;border-radius:15cqw;background:#121214;padding:3.4cqw;box-shadow:0 0 0 .7cqw #3a3a3f inset,0 40px 70px -30px rgba(0,0,0,.55),0 14px 24px -14px rgba(0,0,0,.4)}
@@ -1441,6 +1447,15 @@ function Phone({ p, kind, shift = 0 }: { p: MgnProject; kind: MgnScreen; shift?:
   )
 }
 
+/** A flat graphic design piece (poster, banner) shown at its own aspect ratio — no phone bezel, no fake app chrome. */
+function FlatArt({ p }: { p: MgnProject }) {
+  return (
+    <div className="mgn-flatart" role="img" aria-label={p.name}>
+      <img src={photo(p.images[0] || "", 640)} alt={p.name} loading="lazy" decoding="async" draggable={false} />
+    </div>
+  )
+}
+
 function TiltPhone({ slot, p, kind }: { slot: number; p: MgnProject; kind: MgnScreen }) {
   const inner = React.useRef(null as HTMLDivElement | null)
   const move = (e: React.PointerEvent) => {
@@ -1874,11 +1889,11 @@ function Deal({
               )}
               {clickable ? (
                 <button onClick={() => onOpen(i)} aria-label={"Open the " + p.name + " case study"}>
-                  <Phone p={p} kind="cover" />
+                  {p.flat ? <FlatArt p={p} /> : <Phone p={p} kind="cover" />}
                 </button>
               ) : (
                 <div aria-label={p.name}>
-                  <Phone p={p} kind="cover" />
+                  {p.flat ? <FlatArt p={p} /> : <Phone p={p} kind="cover" />}
                 </div>
               )}
               <span className="mgn-card-label mgn-hand">
