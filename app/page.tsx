@@ -154,6 +154,7 @@ export default function Home() {
           images: ['/designs/flatflox-home.jpg', '/designs/flatflox-search.jpg', '/designs/flatflox-detail.jpg'],
           accent: '#4a3f8f',
           tag: 'UI design',
+          href: 'https://www.figma.com/design/kXH2hbrWt2j9ktnhXY1Hd4/Untitled?node-id=1-26214',
         },
         {
           name: 'Jivexa',
@@ -161,6 +162,7 @@ export default function Home() {
           images: ['/designs/wellora-home.jpg', '/designs/wellora-chat.jpg', '/designs/wellora-diet.jpg'],
           accent: '#16a34a',
           tag: 'UI design',
+          href: 'https://www.figma.com/design/Y4ckQZntDZ7ytuGKFDfhcz/Untitled?node-id=0-1',
         },
         {
           name: 'Security Services App',
@@ -168,6 +170,7 @@ export default function Home() {
           images: ['/designs/guard-home.jpg', '/designs/guard-tracking.jpg', '/designs/guard-profile.jpg'],
           accent: '#c9960c',
           tag: 'UI design',
+          href: 'https://www.figma.com/design/IkzWE3McBqqWDfbJo1Tj83/Untitled',
         },
         {
           name: 'Lithium 2k26',
