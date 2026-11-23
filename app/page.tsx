@@ -92,18 +92,6 @@ export default function Home() {
           tag: 'hackathon prototype',
         },
         {
-          name: 'QR Catalog',
-          tagline: 'Scan a code, see the shop.',
-          kind: 'Web · Open Source',
-          year: '2026',
-          summary:
-            "The public half of Kala Connect: a customer scans an artisan's QR code and lands on [their own catalog page] — *no app, no account*.",
-          images: tiles('#1f6f6b'),
-          screens: ['cover', 'detail', 'feed'],
-          accent: '#1f6f6b',
-          tag: 'in progress',
-        },
-        {
           name: 'Keystone',
           tagline: 'Free GATE mock tests, built from the real papers.',
           kind: 'Full-Stack · Exam Prep',
