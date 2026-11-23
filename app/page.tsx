@@ -66,12 +66,15 @@ export default function Home() {
           kind: 'Desktop App · Open Source',
           year: '2026',
           summary:
-            'A free, open-source desktop app for freelancers — not just developers. Your client *previews or downloads the originals* straight from your own computer. [No cloud, no watermark, no subscription].',
-          challenge: "Most file-sharing tools assume a software workflow — this one had to work for any deliverable.",
-          images: tiles('#2b2b2b'),
-          screens: ['detail', 'feed', 'cover'],
+            'A free, open-source desktop app for freelancers — not just developers. Private links let your client *preview or download the originals* straight from your own computer, exactly as uploaded. [No cloud, no watermark, no subscription] — revoke, password-protect, or set an expiry and download limit on any link.',
+          challenge:
+            'Reaching a home computer safely: the dashboard only binds to localhost, a separate share service serves the links, and the optional cloudflared tunnel binary is checked against a pinned SHA-256 before it’s ever run.',
+          stats: [{ value: 72, label: 'tests passing' }],
+          href: 'https://github.com/Suro026/HandOff',
+          images: ['/projects/handoff-cover.jpg', '/projects/handoff-feed.jpg', '/projects/handoff-detail.jpg'],
+          screens: ['cover', 'feed', 'detail'],
           accent: '#2b2b2b',
-          tag: 'open source',
+          tag: 'v0.1 · early release',
         },
         {
           name: 'Kala Connect',
