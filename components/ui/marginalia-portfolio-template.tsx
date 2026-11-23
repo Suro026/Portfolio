@@ -95,6 +95,9 @@ export type MarginaliaPortfolioTemplateProps = {
   /** What the QR code opens; null hides the code. */
   cvUrl?: string | null
   cvNote?: string
+  /** A second, optional CV/resume link shown alongside the first. */
+  cvUrl2?: string | null
+  cvNote2?: string
   languages?: MgnLanguage[]
   tools?: MgnTool[]
   toolNote?: string
@@ -1670,8 +1673,8 @@ function Hello({ info, portrait, traits, greeting, bio, name }: {
   )
 }
 
-function Education({ info, intro, education, cvUrl, cvNote, languages }: {
-  info: SheetInfo; intro: string; education: MgnEducation[]; cvUrl: string | null; cvNote: string; languages: MgnLanguage[]
+function Education({ info, intro, education, cvUrl, cvNote, cvUrl2, cvNote2, languages }: {
+  info: SheetInfo; intro: string; education: MgnEducation[]; cvUrl: string | null; cvNote: string; cvUrl2?: string | null; cvNote2?: string; languages: MgnLanguage[]
 }) {
   return (
     <Sheet info={info}>
@@ -1717,6 +1720,22 @@ function Education({ info, intro, education, cvUrl, cvNote, languages }: {
                   <Arrow a={[84, 50]} b={[10, 16]} bend={-0.3} head={9} />
                 </svg>
                 <span className="mgn-write">{cvNote}</span>
+              </div>
+            </div>
+          )}
+          {cvUrl2 && (
+            <div className="mgn-qr-wrap" data-ink style={cvUrl ? { marginTop: "clamp(22px,3cqi,40px)" } : undefined}>
+              <a className="mgn-qr" href={cvUrl2} target="_blank" rel="noreferrer" aria-label={"Open my CV: " + cvUrl2}>
+                <span className="mgn-qr-tag">
+                  <span className="mgn-write">scan me</span>
+                </span>
+                <QRCode text={cvUrl2} />
+              </a>
+              <div className="mgn-cvnote mgn-hand">
+                <svg viewBox="0 0 90 60" className="mgn-ink" aria-hidden="true">
+                  <Arrow a={[84, 50]} b={[10, 16]} bend={-0.3} head={9} />
+                </svg>
+                <span className="mgn-write">{cvNote2}</span>
               </div>
             </div>
           )}
@@ -2130,6 +2149,8 @@ export default function MarginaliaPortfolioTemplate(props: MarginaliaPortfolioTe
     educationIntro = DEFAULTS.educationIntro,
     education = DEFAULTS.education,
     cvNote = DEFAULTS.cvNote,
+    cvUrl2,
+    cvNote2,
     languages = DEFAULTS.languages,
     tools = DEFAULTS.tools,
     toolNote = DEFAULTS.toolNote,
@@ -2420,7 +2441,7 @@ export default function MarginaliaPortfolioTemplate(props: MarginaliaPortfolioTe
           case "hello":
             return <Hello key={info.id} info={info} portrait={portrait} traits={traits} greeting={greeting} bio={bio} name={name} />
           case "education":
-            return <Education key={info.id} info={info} intro={educationIntro} education={education} cvUrl={cvUrl} cvNote={cvNote} languages={languages} />
+            return <Education key={info.id} info={info} intro={educationIntro} education={education} cvUrl={cvUrl} cvNote={cvNote} cvUrl2={cvUrl2} cvNote2={cvNote2} languages={languages} />
           case "skills":
             return <Skills key={info.id} info={info} tools={tools} toolNote={toolNote} intro={skillsIntro} skills={skills} books={books} booksNote={booksNote} />
           case "projects":

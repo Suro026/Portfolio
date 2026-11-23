@@ -36,8 +36,10 @@ export default function Home() {
           circled: true,
         },
       ]}
-      cvUrl={CONTACT.github}
-      cvNote="my GitHub"
+      cvUrl="/resume/surajit-sadhukhan-ai-engineer-resume.pdf"
+      cvNote="my AI Engineer resume"
+      cvUrl2="/resume/surajit-sadhukhan-uiux-resume.pdf"
+      cvNote2="my UI/UX resume"
       languages={[
         { name: 'Bengali', level: 'native', value: 1 },
         { name: 'English', level: 'fluent', value: 0.92 },
