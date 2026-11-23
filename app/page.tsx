@@ -136,16 +136,21 @@ export default function Home() {
         },
         {
           name: 'Delta',
-          tagline: 'Know the real mileage.',
+          tagline: 'Know the difference.',
           kind: 'Machine Learning · Flask',
           year: '2025',
           summary:
-            'Predicts real-world vehicle mileage against the brochure figure across bikes, cars and e-scooters, and turns it into [real trip cost] *from whatever fuel price you type in*.',
-          challenge: 'Finding and cleaning real mileage datasets instead of trusting brochure numbers.',
-          images: tiles('#1f2a2b'),
-          screens: ['stats', 'detail', 'cover'],
+            'Twelve classical ML models per vehicle — six predicting real-world mileage, six classifying it efficient or thirsty — across bikes, cars and e-scooters. Type in today’s fuel price and it turns the prediction into [trip, monthly and yearly cost], adjusted for road type, load, age and service.',
+          challenge:
+            'The raw bike dataset has shifted columns on many rows — parsed back out with regex per field, deduplicated by colour variant, and normalised from Auto-MPG’s mixed units (mpg, cubic inches, pounds) to km/l, cc and kg.',
+          stats: [
+            { value: 36, label: 'models trained' },
+            { value: 0.85, decimals: 2, label: 'best R² (Random Forest)' },
+          ],
+          images: ['/projects/delta-cover.jpg', '/projects/delta-stats.jpg', '/projects/delta-detail.jpg'],
+          screens: ['cover', 'stats', 'detail'],
           accent: '#1f2a2b',
-          tag: 'deployed',
+          tag: 'prototype',
         },
       ]}
       factsNote="off the clock"
