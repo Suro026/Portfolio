@@ -147,7 +147,12 @@ export default function Home() {
       ]}
       sections={['cover', 'hello', 'education', 'skills', 'projects', 'cases', 'designs', 'facts', 'thanks']}
       designsNote="Figma UI work and Canva graphics, alongside the code"
-      designs={[]}
+      designs={[
+        { name: 'UI design 1', summary: 'Placeholder — real Figma screens coming.', images: tiles('#7d84ef'), accent: '#7d84ef', tag: 'placeholder' },
+        { name: 'UI design 2', summary: 'Placeholder — real Figma screens coming.', images: tiles('#e0613a'), accent: '#e0613a', tag: 'placeholder' },
+        { name: 'UI design 3', summary: 'Placeholder — real Figma screens coming.', images: tiles('#3f6b4a'), accent: '#3f6b4a', tag: 'placeholder' },
+        { name: 'Graphic design 1', summary: 'Placeholder — real Canva piece coming.', images: tiles('#6d28d9'), accent: '#6d28d9', tag: 'placeholder' },
+      ]}
       factsNote="off the clock"
       facts={[
         { doodle: 'camera', text: 'Documents every Durga Puja pandal I can reach, one by one' },
