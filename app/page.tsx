@@ -148,10 +148,27 @@ export default function Home() {
       sections={['cover', 'hello', 'education', 'skills', 'projects', 'cases', 'designs', 'facts', 'thanks']}
       designsNote="Figma UI work and Canva graphics, alongside the code"
       designs={[
-        { name: 'UI design 1', summary: 'Placeholder — real Figma screens coming.', images: tiles('#7d84ef'), accent: '#7d84ef', tag: 'placeholder' },
-        { name: 'UI design 2', summary: 'Placeholder — real Figma screens coming.', images: tiles('#e0613a'), accent: '#e0613a', tag: 'placeholder' },
-        { name: 'UI design 3', summary: 'Placeholder — real Figma screens coming.', images: tiles('#3f6b4a'), accent: '#3f6b4a', tag: 'placeholder' },
-        { name: 'Graphic design 1', summary: 'Placeholder — real Canva piece coming.', images: tiles('#6d28d9'), accent: '#6d28d9', tag: 'placeholder' },
+        {
+          name: 'FlatFlox',
+          summary: 'A PG/co-living rental app — search, filters, PG details and booking flow.',
+          images: ['/designs/flatflox-home.jpg', '/designs/flatflox-search.jpg', '/designs/flatflox-detail.jpg'],
+          accent: '#4a3f8f',
+          tag: 'UI design',
+        },
+        {
+          name: 'Jivexa',
+          summary: 'An AI health-assistant dashboard — symptom checker, AI chat and a diet planner.',
+          images: ['/designs/wellora-home.jpg', '/designs/wellora-chat.jpg', '/designs/wellora-diet.jpg'],
+          accent: '#16a34a',
+          tag: 'UI design',
+        },
+        {
+          name: 'Security Services App',
+          summary: 'On-demand guard booking — live tracking, duty check-in and guard profiles.',
+          images: ['/designs/guard-home.jpg', '/designs/guard-tracking.jpg', '/designs/guard-profile.jpg'],
+          accent: '#c9960c',
+          tag: 'UI design',
+        },
       ]}
       factsNote="off the clock"
       facts={[
