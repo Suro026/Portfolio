@@ -858,9 +858,9 @@ const CSS = `
 .mgn-card{position:relative;flex:none;width:clamp(78px,14.2cqi,210px);display:flex;flex-direction:column;align-items:center;will-change:transform}
 .mgn-card>button{display:block;width:100%;border-radius:16%/7.4%;transition:transform .45s cubic-bezier(.2,.9,.2,1.2)}
 .mgn-card>button:hover,.mgn-card>button:focus-visible{transform:translateY(-12px) scale(1.04)}
-.mgn-card-label{margin-top:clamp(12px,1.4cqi,20px);font-size:clamp(17px,1.9cqi,27px);white-space:nowrap}
-.mgn-card-view{position:relative;display:inline-block;margin-top:4px;font-size:clamp(13px,1.3cqi,18px);color:var(--mgn-pen);opacity:.85}
-.mgn-card-view:hover{opacity:1}
+.mgn-card-label{margin-top:clamp(12px,1.4cqi,20px);font-size:clamp(17px,1.9cqi,27px);white-space:nowrap;display:block}
+a.mgn-card-label{text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--mgn-pen)}
+a.mgn-card-label:hover{color:var(--mgn-pen)}
 .mgn-card-tag{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) rotate(-4deg);font-size:clamp(15px,1.6cqi,23px);white-space:nowrap;display:flex;flex-direction:column;align-items:center}
 .mgn-card-tag svg{width:24px;height:30px}
 .mgn-card:nth-child(even) .mgn-card-tag{transform:translateX(-50%) rotate(4deg)}
@@ -1898,16 +1898,18 @@ function Deal({
                   {p.flat ? <FlatArt p={p} /> : <Phone p={p} kind="cover" />}
                 </div>
               )}
-              <span className="mgn-card-label mgn-hand">
-                <span className="mgn-card-write">
-                  {i + 1}. {p.name}
-                </span>
-              </span>
-              {!clickable && p.href && (
-                <a className="mgn-card-view mgn-hand" href={p.href} target="_blank" rel="noreferrer">
-                  view
-                  <PenMark kind="under" seed={120 + i} padX={1} padY={4} />
+              {!clickable && p.href ? (
+                <a className="mgn-card-label mgn-hand" href={p.href} target="_blank" rel="noreferrer">
+                  <span className="mgn-card-write">
+                    {i + 1}. {p.name}
+                  </span>
                 </a>
+              ) : (
+                <span className="mgn-card-label mgn-hand">
+                  <span className="mgn-card-write">
+                    {i + 1}. {p.name}
+                  </span>
+                </span>
               )}
             </div>
           ))}
