@@ -169,6 +169,30 @@ export default function Home() {
           accent: '#c9960c',
           tag: 'UI design',
         },
+        {
+          name: 'Lithium 2k26',
+          summary: "Event banner for BIT's Lithium talent hunt — DreamScape, featuring The Morphine India.",
+          images: ['/designs/lithium-banner.jpg'],
+          accent: '#1c3a5e',
+          tag: 'graphic design',
+          flat: true,
+        },
+        {
+          name: 'GenFusion',
+          summary: "Event poster for BIT's Bits2Bytes 2k26 hackathon.",
+          images: ['/designs/genfusion-poster.jpg'],
+          accent: '#7c5cff',
+          tag: 'graphic design',
+          flat: true,
+        },
+        {
+          name: 'Electronovation',
+          summary: "Event poster for BIT's Bits2Bytes 2k26 hackathon.",
+          images: ['/designs/electronovation-poster.jpg'],
+          accent: '#f2d024',
+          tag: 'graphic design',
+          flat: true,
+        },
       ]}
       factsNote="off the clock"
       facts={[
